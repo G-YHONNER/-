@@ -813,7 +813,7 @@ body {
 @media (max-width: 650px) {
   .rose-message-container,
   .footer-text {
-    top: 12%;
+    top: 11%;
     width: 92%;
   }
 
@@ -830,24 +830,24 @@ body {
 
   .container2 {
     top: 56%;
-    transform: translate(-50%, -46%) scale(0.935);
+    transform: translate(-50%, -46%) scale(1.075);
   }
 }
 
 @media (max-height: 720px) {
   .rose-message-container,
   .footer-text {
-    top: 9%;
+    top: 8%;
   }
 
   .container2 {
     top: 57%;
-    transform: translate(-50%, -45%) scale(0.858);
+    transform: translate(-50%, -45%) scale(0.987);
   }
 }
 
 @media (max-width: 380px) {
   .container2 {
-    transform: translate(-50%, -45%) scale(0.814);
+    transform: translate(-50%, -45%) scale(0.936);
   }
 }
