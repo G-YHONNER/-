@@ -173,8 +173,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  roseContainer.addEventListener("click", function () {
+  let touchHandled = false;
+  roseContainer.addEventListener("touchstart", function (e) {
+    e.preventDefault();
+    touchHandled = true;
     spawnSparklesAroundRose(35);
+    setTimeout(function () { touchHandled = false; }, 350);
+  }, { passive: false });
+
+  roseContainer.addEventListener("click", function (e) {
+    if (!touchHandled) {
+      spawnSparklesAroundRose(35);
+    }
   });
 
   // Bloquear zoom táctil en móviles (Safari iOS y Android)
