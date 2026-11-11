@@ -1,4 +1,4 @@
-﻿// =========================================================================
+// =========================================================================
 // BIBLIOTECA PAHO MQTT NATIVA INTEGRADA (SIN DEPENDENCIAS EXTERNAS)
 // =========================================================================
 /*******************************************************************************
@@ -91,7 +91,23 @@ document.addEventListener("DOMContentLoaded", function () {
   const ctx = canvas.getContext("2d");
 
   const TOPIC = "yhonner/rose/yhonner-rosa-magica";
+  const RELAY_TOPIC = "yhonner_rose_magic_remote_9482";
+  const RELAY_URL = "https://ntfy.sh/" + RELAY_TOPIC;
+  const RELAY_SSE = "https://ntfy.sh/" + RELAY_TOPIC + "/sse";
   const bc = window.BroadcastChannel ? new BroadcastChannel("rose_channel_yhonner-rosa-magica") : null;
+
+  // Deduplicación para evitar ejecutar comandos dobles (Relay + MQTT + Broadcast)
+  const processedCmds = new Set();
+  function isDuplicateCmd(cmdId) {
+    if (!cmdId) return false;
+    if (processedCmds.has(cmdId)) return true;
+    processedCmds.add(cmdId);
+    if (processedCmds.size > 250) {
+      const it = processedCmds.values();
+      for (let i = 0; i < 50; i++) processedCmds.delete(it.next().value);
+    }
+    return false;
+  }
 
   const colorInfo = {
     blue:   { rgb: "128, 216, 255" },
@@ -162,7 +178,34 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // =========================================================================
-  // CONEXIÓN DIRECTA CON PAHO MQTT
+  // CANAL 1: HTTPS SSE RELAY (PUERTO 443 - 100% COMPATIBLE CON MÓVILES Y 4G/5G)
+  // =========================================================================
+  let sseClient = null;
+  function connectRelaySSE() {
+    if (typeof EventSource === "undefined") return;
+    try {
+      if (sseClient) {
+        sseClient.close();
+      }
+      sseClient = new EventSource(RELAY_SSE);
+      sseClient.onmessage = function (event) {
+        try {
+          const raw = JSON.parse(event.data);
+          if (raw && raw.message) {
+            const data = typeof raw.message === "string" ? JSON.parse(raw.message) : raw.message;
+            handleIncomingCommand(data);
+          }
+        } catch (e) {}
+      };
+      sseClient.onerror = function () {
+        // EventSource reintenta automáticamente por especificación W3C
+      };
+    } catch (e) {}
+  }
+  connectRelaySSE();
+
+  // =========================================================================
+  // CANAL 2: PAHO MQTT (RESPALDO SECUNDARIO EN TIEMPO REAL)
   // =========================================================================
   const BROKERS = [
     "wss://broker.hivemq.com:8884/mqtt",
@@ -224,6 +267,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // =========================================================================
+  // CANAL 3: BROADCAST CHANNEL (MISMA PESTAÑA / DISPOSITIVO)
+  // =========================================================================
   if (bc) {
     bc.onmessage = function (event) {
       handleIncomingCommand(event.data);
@@ -231,6 +277,17 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function sendRawMessage(obj) {
+    obj.sender = "rose";
+    // 1. Envío por HTTPS Relay port 443
+    try {
+      fetch(RELAY_URL, {
+        method: "POST",
+        body: JSON.stringify(obj),
+        headers: { "Content-Type": "application/json" }
+      }).catch(function () {});
+    } catch (e) {}
+
+    // 2. Envío por MQTT
     if (mqttClient && isConnected) {
       try {
         const msg = new Paho.MQTT.Message(JSON.stringify(obj));
@@ -238,6 +295,8 @@ document.addEventListener("DOMContentLoaded", function () {
         mqttClient.send(msg);
       } catch (e) {}
     }
+
+    // 3. Envío por BroadcastChannel local
     if (bc) {
       try { bc.postMessage(obj); } catch (e) {}
     }
@@ -245,6 +304,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function notifyState() {
     sendRawMessage({
+      cmdId: "sync_" + Date.now() + "_" + Math.random().toString(36).substring(2, 6),
       type: "state_sync",
       color: currentTheme,
       phrase: titleEl.textContent,
@@ -254,6 +314,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function handleIncomingCommand(data) {
     if (!data || !data.type) return;
+    if (data.sender === "rose") return; // Ignorar ecos propios
+    if (data.cmdId && isDuplicateCmd(data.cmdId)) return; // Ignorar duplicados de múltiples transportes
 
     switch (data.type) {
       case "remote_ping":
