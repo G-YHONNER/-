@@ -119,9 +119,11 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   const themeList = ["blue", "pink", "purple", "ruby", "gold", "cyan"];
+  const myRoseId = "rose_" + Math.random().toString(36).substring(2, 9);
   let currentThemeIndex = 0;
   let currentTheme = "blue";
   let cycleInterval = null;
+  let currentCycleIntervalTime = 0;
 
   // 1. RESTAURAR FRASE PERMANENTE DESDE LOCALSTORAGE
   try {
@@ -157,6 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function startCycle(intervalMs) {
     intervalMs = intervalMs || 4000;
+    currentCycleIntervalTime = intervalMs;
     if (cycleInterval) clearInterval(cycleInterval);
     cycleInterval = setInterval(function () {
       currentThemeIndex = (currentThemeIndex + 1) % themeList.length;
@@ -166,12 +169,23 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function stopCycle() {
+    currentCycleIntervalTime = 0;
     if (cycleInterval) {
       clearInterval(cycleInterval);
       cycleInterval = null;
       notifyState();
     }
   }
+
+  // Sincronización instantánea entre múltiples pestañas del mismo navegador
+  window.addEventListener("storage", function (e) {
+    if (e.key === "rose_permanent_phrase") {
+      titleEl.textContent = e.newValue || "";
+    }
+    if (e.key === "rose_permanent_color" && e.newValue) {
+      setTheme(e.newValue, true);
+    }
+  });
 
   let touchHandled = false;
   roseContainer.addEventListener("touchstart", function (e) {
@@ -337,18 +351,53 @@ document.addEventListener("DOMContentLoaded", function () {
       type: "state_sync",
       color: currentTheme,
       phrase: titleEl.textContent,
+      cycleInterval: currentCycleIntervalTime,
       isCycling: !!cycleInterval
+    });
+  }
+
+  function askForSync() {
+    sendRawMessage({
+      type: "request_sync",
+      roseId: myRoseId,
+      time: Date.now()
     });
   }
 
   function handleIncomingCommand(data) {
     if (!data || !data.type) return;
-    if (data.sender === "rose") return; // Ignorar ecos propios
+    if (data.roseId && data.roseId === myRoseId) return; // Ignorar ecos de mí mismo
     if (data.cmdId && isDuplicateCmd(data.cmdId)) return; // Ignorar duplicados de múltiples transportes
 
     switch (data.type) {
+      case "request_sync":
       case "remote_ping":
+        // Responder con nuestro estado si ya estamos inicializados
         notifyState();
+        break;
+
+      case "sync_state":
+        // Sincronizar automáticamente esta pantalla con el estado global
+        if (data.color) {
+          setTheme(data.color, true);
+        }
+        if (data.phrase !== undefined) {
+          titleEl.textContent = data.phrase || "";
+          try {
+            if (data.phrase && data.phrase.trim()) {
+              localStorage.setItem("rose_permanent_phrase", data.phrase.trim());
+            } else {
+              localStorage.removeItem("rose_permanent_phrase");
+            }
+          } catch (e) {}
+        }
+        if (data.cycleInterval && data.cycleInterval > 0) {
+          if (currentCycleIntervalTime !== data.cycleInterval) {
+            startCycle(data.cycleInterval);
+          }
+        } else if (data.cycleInterval === 0 && cycleInterval) {
+          stopCycle();
+        }
         break;
 
       case "color":
@@ -370,7 +419,6 @@ document.addEventListener("DOMContentLoaded", function () {
         break;
 
       case "message":
-        // La frase se guarda permanente
         if (data.text && data.text.trim()) {
           const phrase = data.text.trim();
           titleEl.textContent = phrase;
@@ -393,6 +441,11 @@ document.addEventListener("DOMContentLoaded", function () {
         break;
     }
   }
+
+  // Pedir sincronización automática en cuanto abre la pantalla
+  setTimeout(askForSync, 300);
+  setTimeout(askForSync, 1200);
+  setTimeout(askForSync, 3000);
 
   connectMQTT();
 
