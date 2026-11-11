@@ -8,6 +8,24 @@
   <!-- Fuente Cascadia Code -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cascadia-code@5.0.1/index.min.css" />
   <link rel="stylesheet" href="styles-colores.css" />
+  <!-- Script estricto para bloquear zoom en pantalla de la Rosa -->
+  <script>
+    document.addEventListener("touchstart", function (e) {
+      if (e.touches.length > 1) { e.preventDefault(); }
+    }, { passive: false });
+    document.addEventListener("touchmove", function (e) {
+      if (e.touches.length > 1) { e.preventDefault(); }
+    }, { passive: false });
+    var lastTouch = 0;
+    document.addEventListener("touchend", function (e) {
+      var now = Date.now();
+      if (now - lastTouch <= 300) { e.preventDefault(); }
+      lastTouch = now;
+    }, { passive: false });
+    document.addEventListener("gesturestart", function (e) { e.preventDefault(); }, { passive: false });
+    document.addEventListener("gesturechange", function (e) { e.preventDefault(); }, { passive: false });
+    document.addEventListener("gestureend", function (e) { e.preventDefault(); }, { passive: false });
+  </script>
 </head>
 
 <body>
