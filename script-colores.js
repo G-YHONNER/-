@@ -177,6 +177,19 @@ document.addEventListener("DOMContentLoaded", function () {
     spawnSparklesAroundRose(35);
   });
 
+  // Bloquear zoom táctil en móviles (Safari iOS y Android)
+  document.addEventListener("gesturestart", function (e) { e.preventDefault(); }, { passive: false });
+  document.addEventListener("gesturechange", function (e) { e.preventDefault(); }, { passive: false });
+  document.addEventListener("gestureend", function (e) { e.preventDefault(); }, { passive: false });
+  let lastTouchEndTime = 0;
+  document.addEventListener("touchend", function (e) {
+    const now = Date.now();
+    if (now - lastTouchEndTime <= 300) {
+      e.preventDefault();
+    }
+    lastTouchEndTime = now;
+  }, { passive: false });
+
   // =========================================================================
   // CANAL 1: HTTPS SSE RELAY (PUERTO 443 - 100% COMPATIBLE CON MÓVILES Y 4G/5G)
   // =========================================================================
