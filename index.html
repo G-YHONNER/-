@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rosa Mágica</title>
+  <!-- Fuente Cascadia Code -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cascadia-code@5.0.1/index.min.css" />
+  <link rel="stylesheet" href="styles-colores.css" />
+</head>
+
+<body>
+  <!-- Canvas para partículas mágicas y polvo de estrellas -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Frases y Mensajes arriba de la Rosa (controlados en vivo desde el celular) -->
+  <div class="rose-message-container">
+    <h2 id="roseTitle"></h2>
+    <p id="roseSubtitle"></p>
+  </div>
+
+  <!-- Estructura de la Rosa -->
+  <div class="container">
+    <div class="container2" title="Toca la flor para ver destellos">
+      <div class="thorns">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="leaves">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="petals">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="deadPetals">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script-colores.js"></script>
+</body>
+
+</html>

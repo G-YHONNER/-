@@ -1,0 +1,853 @@
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/cascadia-code@5.0.1/index.min.css');
+
+/* ==========================================================================
+   ROSA MULTICOLOR • INSPIRADA EN LOS COLORES DE LOS TULIPANES
+   ========================================================================== */
+
+:root {
+  /* Paleta 1: Azul Zafiro (Original) */
+  --bg-radial: radial-gradient(ellipse at 50% 50%, #0d214d 0%, #06112c 45%, #020512 100%);
+  --petal-center: #0084ff;
+  --petal-center-shadow: #80d8ff;
+  --petal-mid: #0d52ba;
+  --petal-outer: #1967d2;
+  --petal-glow: #29b6f6;
+  --petal-glow-shadow: #80d8ff;
+  --petal-shadow: rgba(0, 162, 255, 0.5);
+  --petal-shadow-soft: rgba(0, 162, 255, 0.35);
+  --dead-petal: #0084ff;
+  --dead-petal-end: #0a2550;
+  --dead-petal-shadow: rgba(0, 162, 255, 0.5);
+  --text-color: #ffffff;
+  --text-glow: rgba(0, 162, 255, 0.8);
+  --ui-glass: rgba(13, 33, 77, 0.65);
+  --ui-border: rgba(128, 216, 255, 0.3);
+  --ui-hover: rgba(0, 132, 255, 0.35);
+  --ui-active-glow: rgba(0, 162, 255, 0.6);
+  --sparkle-rgb: 128, 216, 255;
+}
+
+/* Paleta 2: Rosa Pastel (Tulipán Rosa) */
+body[data-theme="pink"] {
+  --bg-radial: radial-gradient(ellipse at 50% 50%, #3a162b 0%, #1f0b18 45%, #0c040a 100%);
+  --petal-center: #f4a2b8;
+  --petal-center-shadow: #ffd6e0;
+  --petal-mid: #e886a1;
+  --petal-outer: #b35974;
+  --petal-glow: #ffe4ec;
+  --petal-glow-shadow: #ffb8ca;
+  --petal-shadow: rgba(232, 134, 161, 0.5);
+  --petal-shadow-soft: rgba(232, 134, 161, 0.35);
+  --dead-petal: #f4a2b8;
+  --dead-petal-end: #4a1928;
+  --dead-petal-shadow: rgba(244, 162, 184, 0.5);
+  --text-color: #fff0f5;
+  --text-glow: rgba(244, 162, 184, 0.85);
+  --ui-glass: rgba(58, 22, 43, 0.65);
+  --ui-border: rgba(244, 162, 184, 0.35);
+  --ui-hover: rgba(232, 134, 161, 0.35);
+  --ui-active-glow: rgba(244, 162, 184, 0.6);
+  --sparkle-rgb: 255, 182, 193;
+}
+
+/* Paleta 3: Violeta Encantado (Tulipán Violeta) */
+body[data-theme="purple"] {
+  --bg-radial: radial-gradient(ellipse at 50% 50%, #3b105c 0%, #1b072e 45%, #0b0214 100%);
+  --petal-center: #ab47bc;
+  --petal-center-shadow: #e1bee7;
+  --petal-mid: #7b1fa2;
+  --petal-outer: #4a0e4e;
+  --petal-glow: #ce93d8;
+  --petal-glow-shadow: #f3e5f5;
+  --petal-shadow: rgba(171, 71, 188, 0.55);
+  --petal-shadow-soft: rgba(171, 71, 188, 0.35);
+  --dead-petal: #ab47bc;
+  --dead-petal-end: #270634;
+  --dead-petal-shadow: rgba(171, 71, 188, 0.5);
+  --text-color: #f3e5f5;
+  --text-glow: rgba(206, 147, 216, 0.85);
+  --ui-glass: rgba(59, 16, 92, 0.65);
+  --ui-border: rgba(206, 147, 216, 0.35);
+  --ui-hover: rgba(171, 71, 188, 0.35);
+  --ui-active-glow: rgba(206, 147, 216, 0.6);
+  --sparkle-rgb: 206, 147, 216;
+}
+
+/* Paleta 4: Rubí Pasión (Tulipán Rubí) */
+body[data-theme="ruby"] {
+  --bg-radial: radial-gradient(ellipse at 50% 50%, #520b1f 0%, #2b0610 45%, #140206 100%);
+  --petal-center: #e91e63;
+  --petal-center-shadow: #f8bbd0;
+  --petal-mid: #ad1457;
+  --petal-outer: #5e081c;
+  --petal-glow: #ff4081;
+  --petal-glow-shadow: #ffebee;
+  --petal-shadow: rgba(233, 30, 99, 0.55);
+  --petal-shadow-soft: rgba(233, 30, 99, 0.35);
+  --dead-petal: #e91e63;
+  --dead-petal-end: #380512;
+  --dead-petal-shadow: rgba(233, 30, 99, 0.5);
+  --text-color: #ffebee;
+  --text-glow: rgba(255, 64, 129, 0.85);
+  --ui-glass: rgba(82, 11, 31, 0.65);
+  --ui-border: rgba(255, 64, 129, 0.35);
+  --ui-hover: rgba(233, 30, 99, 0.35);
+  --ui-active-glow: rgba(255, 64, 129, 0.6);
+  --sparkle-rgb: 255, 105, 180;
+}
+
+/* Paleta 5: Oro Estelar (Tulipán Oro) */
+body[data-theme="gold"] {
+  --bg-radial: radial-gradient(ellipse at 50% 50%, #522f0c 0%, #291705 45%, #140c02 100%);
+  --petal-center: #ffb300;
+  --petal-center-shadow: #fff8e1;
+  --petal-mid: #f57f17;
+  --petal-outer: #663d00;
+  --petal-glow: #ffe082;
+  --petal-glow-shadow: #fffde7;
+  --petal-shadow: rgba(255, 179, 0, 0.55);
+  --petal-shadow-soft: rgba(255, 179, 0, 0.35);
+  --dead-petal: #ffb300;
+  --dead-petal-end: #3a1d00;
+  --dead-petal-shadow: rgba(255, 179, 0, 0.5);
+  --text-color: #fffde7;
+  --text-glow: rgba(255, 224, 130, 0.85);
+  --ui-glass: rgba(82, 47, 12, 0.65);
+  --ui-border: rgba(255, 224, 130, 0.35);
+  --ui-hover: rgba(255, 179, 0, 0.35);
+  --ui-active-glow: rgba(255, 224, 130, 0.6);
+  --sparkle-rgb: 255, 215, 0;
+}
+
+/* Paleta 6: Cristal Aurora (Tulipán Cian / Hielo) */
+body[data-theme="cyan"] {
+  --bg-radial: radial-gradient(ellipse at 50% 50%, #0c474f 0%, #05262b 45%, #021214 100%);
+  --petal-center: #00e5ff;
+  --petal-center-shadow: #e0f7fa;
+  --petal-mid: #00897b;
+  --petal-outer: #004d40;
+  --petal-glow: #84ffff;
+  --petal-glow-shadow: #e0f2f1;
+  --petal-shadow: rgba(0, 229, 255, 0.55);
+  --petal-shadow-soft: rgba(0, 229, 255, 0.35);
+  --dead-petal: #00e5ff;
+  --dead-petal-end: #002824;
+  --dead-petal-shadow: rgba(0, 229, 255, 0.5);
+  --text-color: #e0f7fa;
+  --text-glow: rgba(132, 255, 255, 0.85);
+  --ui-glass: rgba(12, 71, 79, 0.65);
+  --ui-border: rgba(132, 255, 255, 0.35);
+  --ui-hover: rgba(0, 229, 255, 0.35);
+  --ui-active-glow: rgba(132, 255, 255, 0.6);
+  --sparkle-rgb: 132, 255, 255;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg-radial);
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.8s ease;
+  user-select: none;
+}
+
+/* Canvas de polvo de estrellas / partículas */
+#particles-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   BARRA DE CONTROLES GLASSMÓRFICA DE COLORES
+   ========================================================================== */
+.controls-bar {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px;
+  background: var(--ui-glass);
+  border: 1px solid var(--ui-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--ui-active-glow);
+  transition: opacity 0.6s ease, transform 0.4s ease;
+  max-width: 95vw;
+  opacity: 1;
+}
+
+.controls-bar.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.controls-label {
+  color: var(--text-color);
+  font-size: 0.82rem;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-right: 2px;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.color-palette-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.color-btn {
+  background: transparent;
+  border: 2px solid transparent;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  position: relative;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.color-btn .swatch {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: block;
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.6);
+}
+
+.color-btn:hover {
+  transform: scale(1.18);
+}
+
+.color-btn.active {
+  border-color: #ffffff;
+  box-shadow: 0 0 12px var(--ui-active-glow);
+  transform: scale(1.15);
+}
+
+/* Colores de los swatches */
+.swatch-blue   { background: linear-gradient(135deg, #0084ff, #0d52ba); }
+.swatch-pink   { background: linear-gradient(135deg, #f4a2b8, #b35974); }
+.swatch-purple { background: linear-gradient(135deg, #ce93d8, #4a0e4e); }
+.swatch-ruby   { background: linear-gradient(135deg, #ff4081, #5e081c); }
+.swatch-gold   { background: linear-gradient(135deg, #ffe082, #663d00); }
+.swatch-cyan   { background: linear-gradient(135deg, #84ffff, #004d40); }
+
+/* Separador */
+.controls-divider {
+  width: 1px;
+  height: 22px;
+  background: var(--ui-border);
+  margin: 0 2px;
+}
+
+/* Botón Auto Ciclo */
+.cycle-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--ui-border);
+  color: var(--text-color);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.cycle-btn:hover {
+  background: var(--ui-hover);
+  border-color: var(--text-color);
+}
+
+.cycle-btn.active {
+  background: var(--ui-hover);
+  border-color: #ffffff;
+  box-shadow: 0 0 10px var(--ui-active-glow);
+}
+
+/* Botón Control Celular */
+.remote-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--ui-border);
+  color: var(--text-color);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.remote-btn:hover {
+  background: var(--ui-hover);
+  border-color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 0 14px var(--ui-active-glow);
+}
+
+/* Indicador de conexión remoto */
+.remote-badge {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffb300;
+  box-shadow: 0 0 6px #ffb300;
+  transition: all 0.3s ease;
+}
+
+.remote-badge.connected {
+  background: #00e676;
+  box-shadow: 0 0 8px #00e676;
+}
+
+/* ==========================================================================
+   ESTRUCTURA BOTÁNICA DE LA ROSA
+   ========================================================================== */
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.container2 {
+  z-index: 2;
+  position: absolute;
+  left: 50%;
+  top: 54%;
+  width: 200px;
+  height: 350px;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+  transition: transform 0.4s ease;
+  cursor: pointer;
+}
+
+.container2 * {
+  z-index: 2;
+}
+
+/* Pétalos de la rosa */
+.container2 .petals > div {
+  position: absolute;
+  background: var(--petal-center);
+  width: 45px;
+  height: 80px;
+  top: 55px;
+  transition: background 0.6s ease, box-shadow 0.6s ease, transform 0.5s ease-out;
+}
+
+.container2 .petals > div:nth-child(1) {
+  border-radius: 15px;
+  box-shadow: 0px 0px 30px var(--petal-center-shadow);
+  left: 80px;
+  top: 60px;
+  background: var(--petal-center);
+}
+
+.container2 .petals > div:nth-child(2),
+.container2 .petals > div:nth-child(4),
+.container2 .petals > div:nth-child(6) {
+  background: var(--petal-mid);
+  left: 60px;
+  border-radius: 0px 30px 0px 30px;
+  transform-origin: bottom right;
+}
+
+.container2 .petals > div:nth-child(3),
+.container2 .petals > div:nth-child(5),
+.container2 .petals > div:nth-child(7) {
+  background: var(--petal-mid);
+  left: 100px;
+  border-radius: 30px 0px 30px 0px;
+  transform-origin: bottom left;
+}
+
+.container2 .petals > div:nth-child(2) {
+  z-index: 5;
+  top: 75px;
+  height: 70px;
+  box-shadow: 0px 0px 50px var(--petal-shadow);
+  animation: glowing 2.5s ease-in-out infinite;
+}
+
+.container2 .petals > div:nth-child(3) {
+  z-index: 4;
+  top: 75px;
+  height: 70px;
+  box-shadow: 0px 0px 50px var(--petal-shadow);
+  animation: glowing 2.5s ease-in-out infinite;
+}
+
+.container2 .petals > div:nth-child(4) {
+  z-index: 3;
+  top: 70px;
+  height: 75px;
+  box-shadow: 0px 0px 50px var(--petal-shadow);
+  animation: bloom4 3s ease-in-out forwards, glowing 2.5s ease-in-out infinite;
+}
+
+.container2 .petals > div:nth-child(5) {
+  z-index: 2;
+  top: 70px;
+  height: 75px;
+  box-shadow: 0px 0px 50px var(--petal-shadow);
+  animation: bloom5 3s ease-in-out forwards, glowing 2.5s ease-in-out infinite;
+}
+
+.container2 .petals > div:nth-child(6) {
+  z-index: 1;
+  background: var(--petal-outer);
+  top: 65px;
+  height: 70px;
+  box-shadow: 0px 0px 50px var(--petal-shadow-soft);
+  animation: bloom6 3s ease-in-out forwards, glowing 2.5s ease-in-out infinite;
+}
+
+.container2 .petals > div:nth-child(7) {
+  z-index: 0;
+  background: var(--petal-outer);
+  top: 65px;
+  height: 70px;
+  box-shadow: 0px 0px 50px var(--petal-shadow-soft);
+  animation: bloom7 3s ease-in-out forwards, glowing 2.5s ease-in-out infinite;
+}
+
+/* Pétalos caídos */
+.container2 .deadPetals > div {
+  position: absolute;
+  background: var(--dead-petal);
+  width: 20px;
+  height: 15px;
+  top: 120px;
+  border-radius: 0px 30px 0px 30px;
+  box-shadow: 0px 0px 30px var(--dead-petal-shadow);
+  transition: background 0.6s ease, box-shadow 0.6s ease;
+}
+
+.container2 .deadPetals > div:nth-child(1) {
+  left: 97px;
+  transform: rotate(-30deg);
+  animation: falling 20s 4s ease-in-out infinite;
+}
+
+.container2 .deadPetals > div:nth-child(2) {
+  left: 113px;
+  transform: rotate(-30deg);
+  animation: falling 20s 8s ease-in-out infinite;
+}
+
+.container2 .deadPetals > div:nth-child(3) {
+  left: 103px;
+  transform: rotate(-30deg);
+  animation: falling 20s 12s ease-in-out infinite;
+}
+
+.container2 .deadPetals > div:nth-child(4) {
+  left: 107px;
+  transform: rotate(-30deg);
+  animation: falling 20s 16s ease-in-out infinite;
+}
+
+/* Hojas y tallo */
+.container2 .leaves > div:nth-last-child(1) {
+  position: absolute;
+  width: 55px;
+  height: 30px;
+  background: #338f37;
+  top: 120px;
+  left: 75px;
+  border-radius: 100px;
+}
+
+.container2 .leaves > div:nth-child(1) {
+  position: absolute;
+  width: 6px;
+  height: 210px;
+  background: #054c05;
+  top: 95px;
+  left: 100px;
+  border-radius: 0 0 100px 100px;
+}
+
+.container2 .leaves > div:nth-child(2) {
+  position: absolute;
+  width: 30px;
+  height: 50px;
+  border-radius: 5px 40px 20px 40px;
+  background: #054c05;
+  transform-origin: bottom;
+  transform: rotate(-30deg);
+  top: 180px;
+  left: 80px;
+  box-shadow: inset 5px 5px #066406;
+}
+
+.container2 .leaves > div:nth-child(3) {
+  position: absolute;
+  width: 30px;
+  height: 50px;
+  border-radius: 40px 5px 40px 20px;
+  background: #054c05;
+  transform-origin: bottom;
+  transform: rotate(30deg);
+  top: 150px;
+  left: 95px;
+  box-shadow: inset -5px 5px #066406;
+}
+
+/* Espinas */
+.container2 .thorns > div {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+
+.container2 .thorns > div:nth-child(odd) {
+  border-left: 5px solid #054c05;
+  left: 105px;
+}
+
+.container2 .thorns > div:nth-child(even) {
+  border-right: 5px solid #054c05;
+  left: 95px;
+}
+
+.container2 .thorns > div:nth-child(1) { top: 200px; }
+.container2 .thorns > div:nth-child(2) { top: 170px; }
+.container2 .thorns > div:nth-child(3) { top: 140px; }
+.container2 .thorns > div:nth-child(4) { top: 230px; }
+
+/* Animaciones */
+@keyframes bloom4 {
+  100% { transform: rotate(-20deg); }
+}
+
+@keyframes bloom5 {
+  100% { transform: rotate(20deg); }
+}
+
+@keyframes bloom6 {
+  100% { transform: rotate(-5deg); }
+}
+
+@keyframes bloom7 {
+  100% { transform: rotate(5deg); }
+}
+
+@keyframes glowing {
+  50% {
+    background: var(--petal-glow);
+    box-shadow: 0px 0px 60px var(--petal-glow-shadow);
+  }
+}
+
+@keyframes falling {
+  20% {
+    top: 335px;
+    background: var(--dead-petal-end);
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+  }
+  100% {
+    top: 335px;
+    opacity: 0;
+  }
+}
+
+/* Mensaje y frases arriba de la rosa (en Cascadia Code) */
+.rose-message-container,
+.footer-text {
+  position: absolute;
+  top: 14%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
+  width: 90%;
+  max-width: 650px;
+}
+
+.rose-message-container h2,
+.footer-text h2 {
+  font-family: 'Cascadia Code', 'Cascadia Mono', Consolas, 'Fira Code', Courier, monospace;
+  color: var(--text-color);
+  font-size: 1.55rem;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  text-shadow: 0px 0px 18px var(--text-glow);
+  transition: color 0.6s ease, text-shadow 0.6s ease;
+  min-height: 2rem;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.rose-message-container p,
+.footer-text p {
+  font-family: 'Cascadia Code', 'Cascadia Mono', Consolas, 'Fira Code', Courier, monospace;
+  color: var(--text-color);
+  font-size: 0.95rem;
+  opacity: 0.85;
+  margin-top: 6px;
+  letter-spacing: 1px;
+  text-shadow: 0px 0px 10px var(--text-glow);
+  transition: color 0.6s ease, text-shadow 0.6s ease;
+}
+
+/* ==========================================================================
+   MODAL PARA CÓDIGO QR Y CONTROL REMOTO
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-card {
+  background: var(--ui-glass);
+  border: 1px solid var(--ui-border);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px var(--ui-active-glow);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 28px 24px;
+  width: 90%;
+  max-width: 380px;
+  text-align: center;
+  color: var(--text-color);
+  position: relative;
+  transform: translateY(20px) scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.open .modal-card {
+  transform: translateY(0) scale(1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: var(--text-color);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: rotate(90deg);
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.modal-subtitle {
+  font-size: 0.82rem;
+  opacity: 0.8;
+  margin-bottom: 18px;
+}
+
+.qr-box-wrapper {
+  background: #ffffff;
+  padding: 14px;
+  border-radius: 16px;
+  display: inline-block;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  margin-bottom: 16px;
+}
+
+#qrcode-container {
+  width: 170px;
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#qrcode-container img, #qrcode-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.room-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--ui-border);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  margin-bottom: 14px;
+}
+
+.room-code {
+  font-family: monospace;
+  font-weight: 700;
+  color: #ffd54f;
+  letter-spacing: 1px;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-primary {
+  background: var(--ui-hover);
+  border: 1px solid var(--text-color);
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+}
+
+.btn-primary:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px var(--ui-active-glow);
+}
+
+.connection-status-text {
+  font-size: 0.78rem;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  opacity: 0.85;
+}
+
+/* Responsividad completa de la Rosa para Celulares */
+@media (max-width: 650px) {
+  .rose-message-container,
+  .footer-text {
+    top: 12%;
+    width: 92%;
+  }
+
+  .rose-message-container h2,
+  .footer-text h2 {
+    font-size: 1.25rem;
+    letter-spacing: 0.5px;
+  }
+
+  .rose-message-container p,
+  .footer-text p {
+    font-size: 0.82rem;
+  }
+
+  .container2 {
+    top: 56%;
+    transform: translate(-50%, -46%) scale(0.85);
+  }
+}
+
+@media (max-height: 720px) {
+  .rose-message-container,
+  .footer-text {
+    top: 9%;
+  }
+
+  .container2 {
+    top: 57%;
+    transform: translate(-50%, -45%) scale(0.78);
+  }
+}
+
+@media (max-width: 380px) {
+  .container2 {
+    transform: translate(-50%, -45%) scale(0.74);
+  }
+}
